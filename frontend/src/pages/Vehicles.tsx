@@ -8,6 +8,8 @@ import {
   useVehicleInfo,
   useVehicleRole,
   useVehicleBatteries,
+  useAllVehicles,
+  useVehicleCount,
   VEHICLE_MANUFACTURER_ROLE,
   VEHICLE_OPERATOR_ROLE,
 } from '../hooks/useVehicleTracking'
@@ -28,6 +30,8 @@ export function Vehicles() {
     searchVehicleId ?? 0,
     searchVehicleId !== null,
   )
+  const { vehicleIds, isLoading: allVehiclesLoading, refetch: refetchAll } = useAllVehicles(isConnected)
+  const { count } = useVehicleCount(isConnected)
   const {
     createNewVehicle,
     transferVehicle,
@@ -50,8 +54,9 @@ export function Vehicles() {
       setShowCreateForm(false)
       refetch()
       refetchBatteries()
+      refetchAll()
     }
-  }, [isConfirmed, refetch, refetchBatteries])
+  }, [isConfirmed, refetch, refetchBatteries, refetchAll])
 
   const handleUpdateLocation = (vehicleId: bigint) => {
     const location = window.prompt('Nova localização:')
@@ -231,6 +236,46 @@ export function Vehicles() {
               {txError && <span className="text-sm text-red-600 self-center">{txError}</span>}
             </div>
           </form>
+        </div>
+      )}
+
+      {/* All Vehicles List */}
+      {isConnected && (
+        <div className="bg-white rounded-lg shadow-sm p-6 mb-8">
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-lg font-semibold text-gray-900">
+              Todos os Veículos ({count.toString()})
+            </h2>
+            <Button variant="outline" size="sm" onClick={() => refetchAll()}>
+              Atualizar
+            </Button>
+          </div>
+          {allVehiclesLoading ? (
+            <div className="text-center py-8">
+              <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-primary-600"></div>
+              <p className="mt-2 text-gray-600">Carregando veículos...</p>
+            </div>
+          ) : vehicleIds.length === 0 ? (
+            <p className="text-gray-500 text-center py-8">Nenhum veículo registrado.</p>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {vehicleIds.map((id) => (
+                <div
+                  key={id.toString()}
+                  className="border border-gray-200 rounded-lg p-4 hover:border-primary-300 hover:shadow-sm transition-all cursor-pointer"
+                  onClick={() => { setShowQR(false); setSearchVehicleId(Number(id)); setVehicleInput(id.toString()); }}
+                >
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="font-medium text-gray-900">Veículo #{id.toString()}</p>
+                      <p className="text-sm text-gray-500">Clique para ver detalhes</p>
+                    </div>
+                    <Car className="w-5 h-5 text-gray-400" />
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       )}
 

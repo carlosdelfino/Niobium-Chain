@@ -198,6 +198,24 @@ contract BatteryTracking is ERC721, ERC721URIStorage, AccessControl, Pausable {
     }
 
     /**
+     * @dev Obtém o total de baterias criadas
+     */
+    function getBatteryCount() public view returns (uint256) {
+        return batteryCounter;
+    }
+
+    /**
+     * @dev Obtém todas as baterias (IDs)
+     */
+    function getAllBatteries() public view returns (uint256[] memory) {
+        uint256[] memory batteryIds = new uint256[](batteryCounter);
+        for (uint256 i = 0; i < batteryCounter; i++) {
+            batteryIds[i] = i;
+        }
+        return batteryIds;
+    }
+
+    /**
      * @dev Obtém baterias de um lote de nióbio
      */
     function getBatteriesByBatch(uint256 niobiumBatchId) public view returns (uint256[] memory) {
@@ -379,6 +397,24 @@ contract VehicleTracking is ERC721, ERC721URIStorage, AccessControl, Pausable {
      */
     function getVehicleBatteries(uint256 vehicleId) public view returns (uint256[] memory) {
         return vehicles[vehicleId].batteryIds;
+    }
+
+    /**
+     * @dev Obtém o total de veículos criados
+     */
+    function getVehicleCount() public view returns (uint256) {
+        return vehicleCounter;
+    }
+
+    /**
+     * @dev Obtém todos os veículos (IDs)
+     */
+    function getAllVehicles() public view returns (uint256[] memory) {
+        uint256[] memory vehicleIds = new uint256[](vehicleCounter);
+        for (uint256 i = 0; i < vehicleCounter; i++) {
+            vehicleIds[i] = i;
+        }
+        return vehicleIds;
     }
 
     /**

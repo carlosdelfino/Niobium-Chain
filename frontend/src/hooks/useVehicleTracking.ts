@@ -164,3 +164,41 @@ export function useVehicleInfo(vehicleId: number, enabled = true) {
     refetch,
   }
 }
+
+/**
+ * Busca todos os IDs de veículos registrados
+ */
+export function useAllVehicles(enabled = true) {
+  const { data, isLoading, error, refetch } = useReadContract({
+    address: CONTRACT_ADDRESSES.vehicleTracking,
+    abi: VEHICLE_TRACKING_ABI,
+    functionName: 'getAllVehicles',
+    query: { enabled },
+  })
+
+  return {
+    vehicleIds: (data ?? []) as readonly bigint[],
+    isLoading,
+    error,
+    refetch,
+  }
+}
+
+/**
+ * Busca o total de veículos registrados
+ */
+export function useVehicleCount(enabled = true) {
+  const { data, isLoading, error, refetch } = useReadContract({
+    address: CONTRACT_ADDRESSES.vehicleTracking,
+    abi: VEHICLE_TRACKING_ABI,
+    functionName: 'getVehicleCount',
+    query: { enabled },
+  })
+
+  return {
+    count: data ?? 0n,
+    isLoading,
+    error,
+    refetch,
+  }
+}

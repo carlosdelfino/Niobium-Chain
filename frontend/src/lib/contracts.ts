@@ -318,6 +318,20 @@ export const BATTERY_TRACKING_ABI = [
     name: 'BatteryCreated',
     type: 'event',
   },
+  {
+    inputs: [],
+    name: 'getBatteryCount',
+    outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: 'getAllBatteries',
+    outputs: [{ internalType: 'uint256[]', name: '', type: 'uint256[]' }],
+    stateMutability: 'view',
+    type: 'function',
+  },
 ] as const;
 
 export const VEHICLE_TRACKING_ABI = [
@@ -422,6 +436,20 @@ export const VEHICLE_TRACKING_ABI = [
     ],
     name: 'VehicleCreated',
     type: 'event',
+  },
+  {
+    inputs: [],
+    name: 'getVehicleCount',
+    outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: 'getAllVehicles',
+    outputs: [{ internalType: 'uint256[]', name: '', type: 'uint256[]' }],
+    stateMutability: 'view',
+    type: 'function',
   },
 ] as const;
 

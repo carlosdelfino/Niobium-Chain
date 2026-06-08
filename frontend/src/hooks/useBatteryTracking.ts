@@ -182,3 +182,41 @@ export function useBatteryInfo(batteryId: number, enabled = true) {
     refetch,
   }
 }
+
+/**
+ * Busca todos os IDs de baterias registradas
+ */
+export function useAllBatteries(enabled = true) {
+  const { data, isLoading, error, refetch } = useReadContract({
+    address: CONTRACT_ADDRESSES.batteryTracking,
+    abi: BATTERY_TRACKING_ABI,
+    functionName: 'getAllBatteries',
+    query: { enabled },
+  })
+
+  return {
+    batteryIds: (data ?? []) as readonly bigint[],
+    isLoading,
+    error,
+    refetch,
+  }
+}
+
+/**
+ * Busca o total de baterias registradas
+ */
+export function useBatteryCount(enabled = true) {
+  const { data, isLoading, error, refetch } = useReadContract({
+    address: CONTRACT_ADDRESSES.batteryTracking,
+    abi: BATTERY_TRACKING_ABI,
+    functionName: 'getBatteryCount',
+    query: { enabled },
+  })
+
+  return {
+    count: data ?? 0n,
+    isLoading,
+    error,
+    refetch,
+  }
+}
