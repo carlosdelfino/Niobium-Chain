@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
-import { useAccount } from 'wagmi'
+import { useAccount, useSwitchChain } from 'wagmi'
+import { sepolia } from 'wagmi/chains'
 import { isAddress } from 'viem'
 import { QRCodeSVG } from 'qrcode.react'
 import { Button } from '../components/Button'
@@ -14,10 +15,11 @@ import {
   VEHICLE_OPERATOR_ROLE,
 } from '../hooks/useVehicleTracking'
 import { parseTxError } from '../hooks/useSupplyChain'
-import { Car, ShieldAlert } from 'lucide-react'
+import { Car, ShieldAlert, AlertTriangle } from 'lucide-react'
 
 export function Vehicles() {
-  const { address, isConnected } = useAccount()
+  const { address, isConnected, chain } = useAccount()
+  const { switchChain } = useSwitchChain()
   const [vehicleInput, setVehicleInput] = useState('')
   const [searchVehicleId, setSearchVehicleId] = useState<number | null>(null)
   const [showQR, setShowQR] = useState(false)
@@ -43,11 +45,13 @@ export function Vehicles() {
     isConfirmed,
     error,
   } = useVehicleTracking()
-  const { hasRole: isManufacturer } = useVehicleRole(VEHICLE_MANUFACTURER_ROLE, address)
-  const { hasRole: isOperator } = useVehicleRole(VEHICLE_OPERATOR_ROLE, address)
+  const { hasRole: isManufacturer, contractMissing: manufacturerContractMissing } = useVehicleRole(VEHICLE_MANUFACTURER_ROLE, address)
+  const { hasRole: isOperator, contractMissing: operatorContractMissing } = useVehicleRole(VEHICLE_OPERATOR_ROLE, address)
+  const contractMissing = manufacturerContractMissing || operatorContractMissing
   const txError = parseTxError(error)
   const canCreate = isConnected && isManufacturer
   const canOperate = isConnected && isOperator
+  const wrongNetwork = chain?.id !== sepolia.id
 
   useEffect(() => {
     if (isConfirmed) {
@@ -132,7 +136,38 @@ export function Vehicles() {
         </Button>
       </div>
 
-      {isConnected && !isManufacturer && (
+      {isConnected && contractMissing && (
+        <div className="bg-red-50 border border-red-200 rounded-lg p-6 mb-8">
+          <div className="flex items-start gap-3">
+            <AlertTriangle className="w-6 h-6 text-red-600 shrink-0" />
+            <div className="flex-1">
+              <h3 className="font-medium text-red-800">Contrato VehicleTracking não encontrado</h3>
+              <p className="text-sm text-red-700 mt-1">
+                O contrato VehicleTracking não existe na rede atual. Isso geralmente acontece quando:
+              </p>
+              <ul className="text-sm text-red-700 mt-2 list-disc list-inside space-y-1">
+                <li>Você ainda não fez o deploy na mainnet</li>
+                <li>Está na rede errada (deve ser Sepolia)</li>
+                <li>O endereço do contrato está incorreto</li>
+              </ul>
+              {wrongNetwork && (
+                <div className="mt-4">
+                  <Button
+                    onClick={() => switchChain({ chainId: sepolia.id })}
+                    variant="destructive"
+                    size="sm"
+                    icon={<AlertTriangle className="w-4 h-4" />}
+                  >
+                    Mudar para Sepolia
+                  </Button>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {isConnected && !contractMissing && !isManufacturer && (
         <div className="bg-amber-50 border border-amber-200 rounded-lg p-6 mb-8">
           <div className="flex items-start gap-3">
             <ShieldAlert className="w-6 h-6 text-amber-600 shrink-0" />

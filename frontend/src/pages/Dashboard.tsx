@@ -1,18 +1,21 @@
 import { useEffect, useState } from 'react'
-import { useAccount } from 'wagmi'
+import { useAccount, useSwitchChain } from 'wagmi'
+import { sepolia } from 'wagmi/chains'
 import { Button } from '../components/Button'
 import { useSupplyChain, useOperatorRole, parseTxError, OPERATOR_HINT_ADDRESS } from '../hooks/useSupplyChain'
 import { useProtocolStats } from '../hooks/useProtocolStats'
 import { STEP_TYPES } from '../lib/contracts'
-import { Package, Battery, Car, TrendingUp, ShieldAlert } from 'lucide-react'
+import { Package, Battery, Car, TrendingUp, ShieldAlert, AlertTriangle } from 'lucide-react'
 
 export function Dashboard() {
-  const { address, isConnected } = useAccount()
-  const { isOperator, isLoading: isRoleLoading } = useOperatorRole(address)
+  const { address, isConnected, chain } = useAccount()
+  const { switchChain } = useSwitchChain()
+  const { isOperator, isLoading: isRoleLoading, contractMissing } = useOperatorRole(address)
   const { createNewBatch, isPending, isConfirming, isConfirmed, error } = useSupplyChain()
   const txError = parseTxError(error)
   const canCreate = isConnected && isOperator
   const { data: protocol, isLoading: statsLoading, refetch } = useProtocolStats()
+  const wrongNetwork = chain?.id !== sepolia.id
 
   const [showCreateForm, setShowCreateForm] = useState(false)
   const [batchForm, setBatchForm] = useState({ did: '', initialStepType: 0, location: '', observation: '' })
@@ -64,7 +67,38 @@ export function Dashboard() {
         </div>
       )}
 
-      {isConnected && !isRoleLoading && !isOperator && (
+      {isConnected && contractMissing && (
+        <div className="bg-red-50 border border-red-200 rounded-lg p-6 mb-8">
+          <div className="flex items-start gap-3">
+            <AlertTriangle className="w-6 h-6 text-red-600 shrink-0" />
+            <div className="flex-1">
+              <h3 className="font-medium text-red-800">Contrato SupplyChain não encontrado</h3>
+              <p className="text-sm text-red-700 mt-1">
+                O contrato SupplyChain não existe na rede atual. Isso geralmente acontece quando:
+              </p>
+              <ul className="text-sm text-red-700 mt-2 list-disc list-inside space-y-1">
+                <li>Você ainda não fez o deploy na mainnet</li>
+                <li>Está na rede errada (deve ser Sepolia)</li>
+                <li>O endereço do contrato está incorreto</li>
+              </ul>
+              {wrongNetwork && (
+                <div className="mt-4">
+                  <Button
+                    onClick={() => switchChain({ chainId: sepolia.id })}
+                    variant="destructive"
+                    size="sm"
+                    icon={<AlertTriangle className="w-4 h-4" />}
+                  >
+                    Mudar para Sepolia
+                  </Button>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {isConnected && !isRoleLoading && !contractMissing && !isOperator && (
         <div className="bg-amber-50 border border-amber-200 rounded-lg p-6 mb-8">
           <div className="flex items-start gap-3">
             <ShieldAlert className="w-6 h-6 text-amber-600 shrink-0" />

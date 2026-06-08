@@ -16,9 +16,9 @@ export function WalletConnect() {
         {wrongNetwork && (
           <Button
             onClick={() => switchChain({ chainId: sepolia.id })}
-            variant="outline"
+            variant="destructive"
             size="sm"
-            icon={<AlertTriangle className="w-4 h-4 text-amber-500" />}
+            icon={<AlertTriangle className="w-4 h-4" />}
           >
             Mudar para Sepolia
           </Button>

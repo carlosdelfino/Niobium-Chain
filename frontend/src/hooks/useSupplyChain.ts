@@ -51,7 +51,7 @@ export function parseTxError(error: unknown): string | null {
  * Verifica se uma conta possui o papel OPERATOR_ROLE no contrato SupplyChain.
  */
 export function useOperatorRole(account?: `0x${string}`) {
-  const { data, isLoading, refetch } = useReadContract({
+  const { data, isLoading, refetch, error } = useReadContract({
     address: CONTRACT_ADDRESSES.supplyChain,
     abi: SUPPLY_CHAIN_ABI,
     functionName: 'hasRole',
@@ -59,10 +59,21 @@ export function useOperatorRole(account?: `0x${string}`) {
     query: { enabled: !!account },
   })
 
+  // Detecta se o contrato não existe (erro de contrato não implantado)
+  const contractMissing = error && (
+    error.message.includes('contract not deployed') ||
+    error.message.includes('contract not found') ||
+    error.message.includes('no contract at address') ||
+    error.message.includes('execution reverted') ||
+    (error as any).data?.code === -32000 ||
+    (error as any).code === 'CALL_EXCEPTION'
+  )
+
   return {
     isOperator: data === true,
     isLoading,
     refetch,
+    contractMissing,
   }
 }
 
@@ -71,7 +82,7 @@ export function useOperatorRole(account?: `0x${string}`) {
  * Somente um admin pode conceder/revogar OPERATOR_ROLE a outras contas.
  */
 export function useAdminRole(account?: `0x${string}`) {
-  const { data, isLoading, refetch } = useReadContract({
+  const { data, isLoading, refetch, error } = useReadContract({
     address: CONTRACT_ADDRESSES.supplyChain,
     abi: SUPPLY_CHAIN_ABI,
     functionName: 'hasRole',
@@ -79,10 +90,21 @@ export function useAdminRole(account?: `0x${string}`) {
     query: { enabled: !!account },
   })
 
+  // Detecta se o contrato não existe (erro de contrato não implantado)
+  const contractMissing = error && (
+    error.message.includes('contract not deployed') ||
+    error.message.includes('contract not found') ||
+    error.message.includes('no contract at address') ||
+    error.message.includes('execution reverted') ||
+    (error as any).data?.code === -32000 ||
+    (error as any).code === 'CALL_EXCEPTION'
+  )
+
   return {
     isAdmin: data === true,
     isLoading,
     refetch,
+    contractMissing,
   }
 }
 

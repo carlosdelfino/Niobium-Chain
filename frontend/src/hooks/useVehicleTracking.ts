@@ -10,14 +10,25 @@ export const VEHICLE_OPERATOR_ROLE = keccak256(toBytes('OPERATOR_ROLE'))
  * Verifica se uma conta possui um papel no contrato VehicleTracking.
  */
 export function useVehicleRole(role: `0x${string}`, account?: `0x${string}`) {
-  const { data, isLoading, refetch } = useReadContract({
+  const { data, isLoading, refetch, error } = useReadContract({
     address: CONTRACT_ADDRESSES.vehicleTracking,
     abi: VEHICLE_TRACKING_ABI,
     functionName: 'hasRole',
     args: [role, (account ?? '0x0000000000000000000000000000000000000000') as `0x${string}`],
     query: { enabled: !!account },
   })
-  return { hasRole: data === true, isLoading, refetch }
+
+  // Detecta se o contrato não existe (erro de contrato não implantado)
+  const contractMissing = error && (
+    error.message.includes('contract not deployed') ||
+    error.message.includes('contract not found') ||
+    error.message.includes('no contract at address') ||
+    error.message.includes('execution reverted') ||
+    (error as any).data?.code === -32000 ||
+    (error as any).code === 'CALL_EXCEPTION'
+  )
+
+  return { hasRole: data === true, isLoading, refetch, contractMissing }
 }
 
 /**
