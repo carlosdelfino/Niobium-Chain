@@ -1,0 +1,278 @@
+<mxfile host="app.diagrams.net" modified="2025-05-30T20:00:00.000Z" agent="Cascade AI" version="24.0.0">
+  <diagram name="Frontend Architecture" id="frontend-arch">
+    <mxGraphModel dx="1422" dy="794" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1200" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        
+        <!-- Main App Container -->
+        <mxCell id="app-container" value="App.tsx&#xa;Componente Principal" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=14;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="600" y="40" width="200" height="60" as="geometry" />
+        </mxCell>
+        
+        <!-- Wagmi Provider -->
+        <mxCell id="wagmi-provider" value="WagmiProvider&#xa;(Web3 Context)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12" vertex="1" parent="1">
+          <mxGeometry x="350" y="140" width="160" height="50" as="geometry" />
+        </mxCell>
+        
+        <!-- Query Provider -->
+        <mxCell id="query-provider" value="QueryClientProvider&#xa;(React Query)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12" vertex="1" parent="1">
+          <mxGeometry x="550" y="140" width="160" height="50" as="geometry" />
+        </mxCell>
+        
+        <!-- Navigation -->
+        <mxCell id="navigation" value="Navigation&#xa;(Tab System)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12" vertex="1" parent="1">
+          <mxGeometry x="750" y="140" width="160" height="50" as="geometry" />
+        </mxCell>
+        
+        <!-- Pages Container -->
+        <mxCell id="pages-container" value="Pages" style="swimlane;fontStyle=1;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=14" vertex="1" parent="1">
+          <mxGeometry x="200" y="240" width="1200" height="400" as="geometry" />
+        </mxCell>
+        
+        <!-- Dashboard Page -->
+        <mxCell id="dashboard-page" value="Dashboard.tsx&#xa;• Stats Cards&#xa;• Quick Actions&#xa;• Recent Activity" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontSize=11" vertex="1" parent="pages-container">
+          <mxGeometry y="30" width="1200" height="90" as="geometry" />
+        </mxCell>
+        
+        <!-- SupplyChain Page -->
+        <mxCell id="supplychain-page" value="SupplyChain.tsx&#xa;• Batch Search&#xa;• Timeline View&#xa;• Workflow Info" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontSize=11" vertex="1" parent="pages-container">
+          <mxGeometry y="120" width="1200" height="90" as="geometry" />
+        </mxCell>
+        
+        <!-- Batteries Page -->
+        <mxCell id="batteries-page" value="Batteries.tsx&#xa;• Create Form&#xa;• Search&#xa;• Details View" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontSize=11" vertex="1" parent="pages-container">
+          <mxGeometry y="210" width="1200" height="90" as="geometry" />
+        </mxCell>
+        
+        <!-- Vehicles Page -->
+        <mxCell id="vehicles-page" value="Vehicles.tsx&#xa;• Create Form&#xa;• Search&#xa;• Details View" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontSize=11" vertex="1" parent="pages-container">
+          <mxGeometry y="300" width="1200" height="90" as="geometry" />
+        </mxCell>
+        
+        <!-- Components Container -->
+        <mxCell id="components-container" value="Components (src/components/)" style="swimlane;fontStyle=1;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fillColor=#f8cecc;strokeColor=#b85450;fontSize=14" vertex="1" parent="1">
+          <mxGeometry x="200" y="680" width="400" height="200" as="geometry" />
+        </mxCell>
+        
+        <!-- Button Component -->
+        <mxCell id="button-component" value="Button.tsx&#xa;• Variants (default, outline, ghost)&#xa;• Sizes (sm, md, lg)&#xa;• Icon support" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontSize=10" vertex="1" parent="components-container">
+          <mxGeometry y="30" width="400" height="50" as="geometry" />
+        </mxCell>
+        
+        <!-- Header Component -->
+        <mxCell id="header-component" value="Header.tsx&#xa;• Logo&#xa;• Navigation&#xa;• WalletConnect" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontSize=10" vertex="1" parent="components-container">
+          <mxGeometry y="80" width="400" height="50" as="geometry" />
+        </mxCell>
+        
+        <!-- WalletConnect Component -->
+        <mxCell id="wallet-component" value="WalletConnect.tsx&#xa;• useAccount&#xa;• useConnect&#xa;• useDisconnect" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontSize=10" vertex="1" parent="components-container">
+          <mxGeometry y="130" width="400" height="50" as="geometry" />
+        </mxCell>
+        
+        <!-- Hooks Container -->
+        <mxCell id="hooks-container" value="Custom Hooks (src/hooks/)" style="swimlane;fontStyle=1;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fillColor=#e6d0de;strokeColor=#996185;fontSize=14" vertex="1" parent="1">
+          <mxGeometry x="650" y="680" width="400" height="200" as="geometry" />
+        </mxCell>
+        
+        <!-- useSupplyChain Hook -->
+        <mxCell id="use-supplychain" value="useSupplyChain.ts&#xa;• createNewBatch()&#xa;• useBatchHistory()&#xa;• Wagmi integration" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontSize=10" vertex="1" parent="hooks-container">
+          <mxGeometry y="30" width="400" height="50" as="geometry" />
+        </mxCell>
+        
+        <!-- useBatteryTracking Hook -->
+        <mxCell id="use-battery" value="useBatteryTracking.ts&#xa;• createNewBattery()&#xa;• useBatteryInfo()&#xa;• Wagmi integration" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontSize=10" vertex="1" parent="hooks-container">
+          <mxGeometry y="80" width="400" height="50" as="geometry" />
+        </mxCell>
+        
+        <!-- useVehicleTracking Hook -->
+        <mxCell id="use-vehicle" value="useVehicleTracking.ts&#xa;• createNewVehicle()&#xa;• useVehicleInfo()&#xa;• Wagmi integration" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontSize=10" vertex="1" parent="hooks-container">
+          <mxGeometry y="130" width="400" height="50" as="geometry" />
+        </mxCell>
+        
+        <!-- Lib Container -->
+        <mxCell id="lib-container" value="Lib & Config (src/lib/)" style="swimlane;fontStyle=1;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fillColor=#d0cee0;strokeColor=#765d8d;fontSize=14" vertex="1" parent="1">
+          <mxGeometry x="1100" y="680" width="400" height="200" as="geometry" />
+        </mxCell>
+        
+        <!-- wagmi.ts -->
+        <mxCell id="wagmi-config" value="wagmi.ts&#xa;• Wagmi config&#xa;• Network config&#xa;• Connectors" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontSize=10" vertex="1" parent="lib-container">
+          <mxGeometry y="30" width="400" height="50" as="geometry" />
+        </mxCell>
+        
+        <!-- contracts.ts -->
+        <mxCell id="contracts-config" value="contracts.ts&#xa;• Contract ABIs&#xa;• Contract addresses&#xa;• Type definitions" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontSize=10" vertex="1" parent="lib-container">
+          <mxGeometry y="80" width="400" height="50" as="geometry" />
+        </mxCell>
+        
+        <!-- External Dependencies -->
+        <mxCell id="external-deps" value="External Dependencies" style="swimlane;fontStyle=1;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fillColor=#f5f5f5;strokeColor=#666666;fontSize=14" vertex="1" parent="1">
+          <mxGeometry x="200" y="920" width="1300" height="200" as="geometry" />
+        </mxCell>
+        
+        <!-- React -->
+        <mxCell id="react-dep" value="React 19&#xa;• UI Library&#xa;• Hooks" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#cce5ff;strokeColor=#36393d;fontSize=10" vertex="1" parent="external-deps">
+          <mxGeometry x="30" y="30" width="120" height="60" as="geometry" />
+        </mxCell>
+        
+        <!-- Wagmi -->
+        <mxCell id="wagmi-dep" value="Wagmi&#xa;• Web3 React&#xa;• Hooks" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#cce5ff;strokeColor=#36393d;fontSize=10" vertex="1" parent="external-deps">
+          <mxGeometry x="170" y="30" width="120" height="60" as="geometry" />
+        </mxCell>
+        
+        <!-- Viem -->
+        <mxCell id="viem-dep" value="Viem&#xa;• Ethereum TS&#xa;• Utils" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#cce5ff;strokeColor=#36393d;fontSize=10" vertex="1" parent="external-deps">
+          <mxGeometry x="310" y="30" width="120" height="60" as="geometry" />
+        </mxCell>
+        
+        <!-- TanStack Query -->
+        <mxCell id="query-dep" value="TanStack Query&#xa;• State Mgmt&#xa;• Caching" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#cce5ff;strokeColor=#36393d;fontSize=10" vertex="1" parent="external-deps">
+          <mxGeometry x="450" y="30" width="120" height="60" as="geometry" />
+        </mxCell>
+        
+        <!-- Tailwind -->
+        <mxCell id="tailwind-dep" value="Tailwind CSS&#xa;• Styling&#xa;• Utility classes" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#cce5ff;strokeColor=#36393d;fontSize=10" vertex="1" parent="external-deps">
+          <mxGeometry x="590" y="30" width="120" height="60" as="geometry" />
+        </mxCell>
+        
+        <!-- Lucide -->
+        <mxCell id="lucide-dep" value="Lucide React&#xa;• Icons&#xa;• SVG" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#cce5ff;strokeColor=#36393d;fontSize=10" vertex="1" parent="external-deps">
+          <mxGeometry x="730" y="30" width="120" height="60" as="geometry" />
+        </mxCell>
+        
+        <!-- MetaMask -->
+        <mxCell id="metamask-dep" value="MetaMask&#xa;• Wallet&#xa;• Provider" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=10" vertex="1" parent="external-deps">
+          <mxGeometry x="870" y="30" width="120" height="60" as="geometry" />
+        </mxCell>
+        
+        <!-- Ethereum -->
+        <mxCell id="ethereum-dep" value="Ethereum&#xa;• Blockchain&#xa;• Smart Contracts" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=10" vertex="1" parent="external-deps">
+          <mxGeometry x="1010" y="30" width="120" height="60" as="geometry" />
+        </mxCell>
+        
+        <!-- Connections -->
+        <mxCell id="conn1" edge="1" parent="1" source="app-container" target="wagmi-provider">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="conn2" edge="1" parent="1" source="app-container" target="query-provider">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="conn3" edge="1" parent="1" source="app-container" target="navigation">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="conn4" edge="1" parent="1" source="navigation" target="dashboard-page">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="conn5" edge="1" parent="1" source="navigation" target="supplychain-page">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="conn6" edge="1" parent="1" source="navigation" target="batteries-page">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="conn7" edge="1" parent="1" source="navigation" target="vehicles-page">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="conn8" edge="1" parent="1" source="dashboard-page" target="button-component">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="conn9" edge="1" parent="1" source="dashboard-page" target="header-component">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="conn10" edge="1" parent="1" source="header-component" target="wallet-component">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="conn11" edge="1" parent="1" source="dashboard-page" target="use-supplychain">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="conn12" edge="1" parent="1" source="batteries-page" target="use-battery">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="conn13" edge="1" parent="1" source="vehicles-page" target="use-vehicle">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="conn14" edge="1" parent="1" source="use-supplychain" target="contracts-config">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="conn15" edge="1" parent="1" source="use-battery" target="contracts-config">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="conn16" edge="1" parent="1" source="use-vehicle" target="contracts-config">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="conn17" edge="1" parent="1" source="wallet-component" target="wagmi-config">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="conn18" edge="1" parent="1" source="wagmi-config" target="wagmi-dep">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="conn19" edge="1" parent="1" source="wagmi-config" target="viem-dep">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="conn20" edge="1" parent="1" source="query-provider" target="query-dep">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="conn21" edge="1" parent="1" source="app-container" target="react-dep">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="conn22" edge="1" parent="1" source="contracts-config" target="ethereum-dep">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="conn23" edge="1" parent="1" source="wallet-component" target="metamask-dep">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <!-- Legend -->
+        <mxCell id="legend" value="Legend" style="swimlane;fontStyle=1;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fillColor=#ffffff;strokeColor=#000000;fontSize=12" vertex="1" parent="1">
+          <mxGeometry x="50" y="40" width="200" height="150" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="legend1" value="🟦 Main Component" style="text;strokeColor=none;fillColor=#e1d5e7;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontSize=10" vertex="1" parent="legend">
+          <mxGeometry y="30" width="200" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="legend2" value="🟢 Provider/Context" style="text;strokeColor=none;fillColor=#d5e8d4;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontSize=10" vertex="1" parent="legend">
+          <mxGeometry y="50" width="200" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="legend3" value="🟡 Navigation/State" style="text;strokeColor=none;fillColor=#fff2cc;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontSize=10" vertex="1" parent="legend">
+          <mxGeometry y="70" width="200" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="legend4" value="🔴 Components" style="text;strokeColor=none;fillColor=#f8cecc;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontSize=10" vertex="1" parent="legend">
+          <mxGeometry y="90" width="200" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="legend5" value="🟣 Hooks" style="text;strokeColor=none;fillColor=#e6d0de;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontSize=10" vertex="1" parent="legend">
+          <mxGeometry y="110" width="200" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="legend6" value="🟤 Lib/Config" style="text;strokeColor=none;fillColor=#d0cee0;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontSize=10" vertex="1" parent="legend">
+          <mxGeometry y="130" width="200" height="20" as="geometry" />
+        </mxCell>
+        
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

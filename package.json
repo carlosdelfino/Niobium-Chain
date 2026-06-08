@@ -1,0 +1,43 @@
+{
+  "name": "niobiumchain-web3",
+  "version": "1.0.0",
+  "description": "Blockchain supply chain para rastreabilidade de nióbio em baterias e créditos de carbono",
+  "main": "index.js",
+  "scripts": {
+    "compile": "hardhat compile",
+    "test": "hardhat test",
+    "deploy:local": "hardhat run scripts/deploy.js --network localhost",
+    "deploy:testnet": "hardhat run scripts/deploy.js --network sepolia",
+    "deploy:mainnet": "hardhat run scripts/deploy.js --network mainnet",
+    "deploy:auto:local": "hardhat run scripts/deploy-and-update.js --network localhost",
+    "deploy:auto:testnet": "hardhat run scripts/deploy-and-update.js --network sepolia",
+    "deploy:auto:mainnet": "hardhat run scripts/deploy-and-update.js --network mainnet",
+    "node": "hardhat node",
+    "verify": "hardhat verify --network",
+    "slither": "slither .",
+    "clean": "hardhat clean"
+  },
+  "keywords": [
+    "blockchain",
+    "niobium",
+    "supply-chain",
+    "ethereum",
+    "solidity",
+    "hardhat",
+    "carbon-credits"
+  ],
+  "author": "NiobiumChain Team",
+  "license": "MIT",
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^5.0.0",
+    "@nomicfoundation/hardhat-verify": "^2.0.0",
+    "chai": "^4.4.1",
+    "dotenv": "^16.4.5",
+    "ethers": "^6.12.0",
+    "hardhat": "^2.22.15",
+    "stacktrace-parser": "^0.1.11"
+  },
+  "dependencies": {
+    "@openzeppelin/contracts": "^5.0.2"
+  }
+}

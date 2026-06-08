@@ -1,0 +1,17 @@
+{
+  "filter_paths": "node_modules",
+  "detectors_to_exclude": [
+    "pragma",
+    "solc-version",
+    "low-level-calls",
+    "assembly",
+    "delegatecall",
+    "constable-states",
+    "function-state-mutability",
+    "naming-convention"
+  ],
+  "disable_color": false,
+  "json": "./slither-report.json",
+  "markdown": "./slither-report.md",
+  "checklist": "./slither-checklist.txt"
+}

@@ -1,0 +1,21 @@
+{
+  "network": "sepolia",
+  "deployer": "0x66682BBeD9e540017967692cCdd069fE5F833888",
+  "timestamp": "2026-06-04T16:58:49.978Z",
+  "contracts": {
+    "SupplyChain": "0xa8D4C4a0112E3E97f1EEaa3A5049e863DB384835",
+    "NiobiumDID": "0x1ce2Ff12db18e690D03A119e212469C697824097",
+    "QRCodeSystem": "0xbedA5753f950c891d79a49f7c37182F0161c187C",
+    "CVOracle": "0x041055839123bd236010f4a4e663932F5C1167be",
+    "MiningStep": "0x3a0bD37aAA2dDf4Ec9c6a301D30E74DdD4fF1013",
+    "TransportStep": "0x15d07411819A5de446BA0A14a3c7641f46d439ba",
+    "ProcessingStep": "0x572ddcf703BeBaAE0e50622c5e771C07c305d374",
+    "PackagingStep": "0x9424cDcfBAfB0DdD4E6DB1B2728d410B75a5814A",
+    "PortStep": "0xa6CE3CAb13b5d91E0aDDb2D89a73856BE764F775",
+    "BatteryTracking": "0xbdC5a2DE14ac2530bC4D8Ca4D8572040F85B2938",
+    "VehicleTracking": "0x86fE62cb65C036412dC100035DeacD5A9345D86F",
+    "NiobiumToken": "0xF51dBd3476835ed4f5d2d411B2E8e372A167e7A4",
+    "CarbonCredit": "0x9fE08E204266D321fFB50Ed2d198ac2279494d5F",
+    "BatteryPassport": "0x0479Dd995B6B5C6BD501d51168e48A57c33fbC7A"
+  }
+}

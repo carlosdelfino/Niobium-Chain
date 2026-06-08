@@ -1,0 +1,5 @@
+# Python dependencies for security tools
+slither-analyzer==0.10.0
+mythril==0.23.15
+ethereum==6.0.0
+py-solc-x==2.0.3
