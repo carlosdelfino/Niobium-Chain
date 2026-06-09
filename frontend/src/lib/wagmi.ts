@@ -14,10 +14,11 @@ const httpOpts = {
 
 // Transport resiliente: usa o RPC configurado e, se falhar/limitar (429),
 // faz fallback automático para um nó público.
+// Nota: https://rpc.sepolia.org não suporta CORS, então não é usado no navegador
 const sepoliaTransport = fallback([
   http(import.meta.env.VITE_SEPOLIA_RPC_URL || 'https://ethereum-sepolia-rpc.publicnode.com', httpOpts),
   http('https://ethereum-sepolia-rpc.publicnode.com', httpOpts),
-  http('https://rpc.sepolia.org', httpOpts),
+  http('https://sepolia.drpc.org', httpOpts),
 ])
 
 const mainnetTransport = fallback([
