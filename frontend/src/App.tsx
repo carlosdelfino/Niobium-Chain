@@ -9,6 +9,7 @@ import { SupplyChain } from './pages/SupplyChain'
 import { Batteries } from './pages/Batteries'
 import { Vehicles } from './pages/Vehicles'
 import { Admin } from './pages/Admin'
+import { CarbonCredits } from './pages/CarbonCredits'
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -19,7 +20,7 @@ const queryClient = new QueryClient({
   },
 })
 
-type Page = 'dashboard' | 'supplychain' | 'batteries' | 'vehicles' | 'admin'
+type Page = 'dashboard' | 'supplychain' | 'batteries' | 'vehicles' | 'carboncredits' | 'admin'
 
 function App() {
   const [currentPage, setCurrentPage] = useState<Page>('dashboard')
@@ -34,6 +35,8 @@ function App() {
         return <Batteries />
       case 'vehicles':
         return <Vehicles />
+      case 'carboncredits':
+        return <CarbonCredits />
       case 'admin':
         return <Admin />
       default:
@@ -101,6 +104,16 @@ function App() {
                   }`}
                 >
                   Veículos
+                </button>
+                <button
+                  onClick={() => setCurrentPage('carboncredits')}
+                  className={`px-3 py-4 text-sm font-medium border-b-2 transition-colors ${
+                    currentPage === 'carboncredits'
+                      ? 'border-primary-600 text-primary-600'
+                      : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                  }`}
+                >
+                  Créditos de Carbono
                 </button>
                 <button
                   onClick={() => setCurrentPage('admin')}

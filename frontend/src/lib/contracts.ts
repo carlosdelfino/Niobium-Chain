@@ -453,12 +453,138 @@ export const VEHICLE_TRACKING_ABI = [
   },
 ] as const;
 
+export const CARBON_CREDIT_ABI = [
+  {
+    inputs: [
+      { internalType: 'address', name: 'to', type: 'address' },
+      { internalType: 'uint256', name: 'niobiumBatchId', type: 'uint256' },
+      { internalType: 'uint256', name: 'co2Avoided', type: 'uint256' },
+      { internalType: 'string', name: 'methodology', type: 'string' },
+      { internalType: 'string', name: 'uri', type: 'string' },
+    ],
+    name: 'mintCredit',
+    outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [{ internalType: 'uint256', name: 'creditId', type: 'uint256' }],
+    name: 'verifyCredit',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      { internalType: 'uint256', name: 'creditId', type: 'uint256' },
+      { internalType: 'uint256', name: 'amount', type: 'uint256' },
+    ],
+    name: 'retireCredit',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      { internalType: 'bytes32', name: 'role', type: 'bytes32' },
+      { internalType: 'address', name: 'account', type: 'address' },
+    ],
+    name: 'hasRole',
+    outputs: [{ internalType: 'bool', name: '', type: 'bool' }],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
+    name: 'creditData',
+    outputs: [
+      { internalType: 'uint256', name: 'niobiumBatchId', type: 'uint256' },
+      { internalType: 'uint256', name: 'co2Avoided', type: 'uint256' },
+      { internalType: 'string', name: 'methodology', type: 'string' },
+      { internalType: 'uint256', name: 'timestamp', type: 'uint256' },
+      { internalType: 'bool', name: 'verified', type: 'bool' },
+      { internalType: 'address', name: 'verifier', type: 'address' },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [{ internalType: 'uint256', name: 'id', type: 'uint256' }],
+    name: 'uri',
+    outputs: [{ internalType: 'string', name: '', type: 'string' }],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [
+      { internalType: 'address', name: 'account', type: 'address' },
+      { internalType: 'uint256', name: 'id', type: 'uint256' },
+    ],
+    name: 'balanceOf',
+    outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: 'MINTER_ROLE',
+    outputs: [{ internalType: 'bytes32', name: '', type: 'bytes32' }],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: 'ADMIN_ROLE',
+    outputs: [{ internalType: 'bytes32', name: '', type: 'bytes32' }],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: 'AUDITOR_ROLE',
+    outputs: [{ internalType: 'bytes32', name: '', type: 'bytes32' }],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    anonymous: false,
+    inputs: [
+      { indexed: true, internalType: 'uint256', name: 'creditId', type: 'uint256' },
+      { indexed: false, internalType: 'uint256', name: 'niobiumBatchId', type: 'uint256' },
+      { indexed: false, internalType: 'uint256', name: 'co2Avoided', type: 'uint256' },
+      { indexed: true, internalType: 'address', name: 'recipient', type: 'address' },
+    ],
+    name: 'CreditMinted',
+    type: 'event',
+  },
+  {
+    anonymous: false,
+    inputs: [
+      { indexed: true, internalType: 'uint256', name: 'creditId', type: 'uint256' },
+      { indexed: true, internalType: 'address', name: 'verifier', type: 'address' },
+    ],
+    name: 'CreditVerified',
+    type: 'event',
+  },
+  {
+    anonymous: false,
+    inputs: [
+      { indexed: true, internalType: 'uint256', name: 'creditId', type: 'uint256' },
+      { indexed: false, internalType: 'uint256', name: 'amount', type: 'uint256' },
+      { indexed: true, internalType: 'address', name: 'retiree', type: 'address' },
+    ],
+    name: 'CreditRetired',
+    type: 'event',
+  },
+] as const;
+
 // Endereços dos contratos (lidos do .env; fallback = deploy Sepolia)
 export const CONTRACT_ADDRESSES = {
   supplyChain: (import.meta.env.VITE_SUPPLY_CHAIN_ADDRESS || '0xa8D4C4a0112E3E97f1EEaa3A5049e863DB384835') as `0x${string}`,
   niobiumDID: (import.meta.env.VITE_NIOBIUM_DID_ADDRESS || '0x1ce2Ff12db18e690D03A119e212469C697824097') as `0x${string}`,
   batteryTracking: (import.meta.env.VITE_BATTERY_TRACKING_ADDRESS || '0xbdC5a2DE14ac2530bC4D8Ca4D8572040F85B2938') as `0x${string}`,
   vehicleTracking: (import.meta.env.VITE_VEHICLE_TRACKING_ADDRESS || '0x86fE62cb65C036412dC100035DeacD5A9345D86F') as `0x${string}`,
+  carbonCredit: (import.meta.env.VITE_CARBON_CREDIT_ADDRESS || '0x9fE08E204266D321fFB50Ed2d198ac2279494d5F') as `0x${string}`,
 } as const;
 
 // Bloco a partir do qual buscar eventos (evita varrer toda a chain)

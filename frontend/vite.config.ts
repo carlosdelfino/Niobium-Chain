@@ -8,4 +8,15 @@ import react from '@vitejs/plugin-react'
 export default defineConfig(({ command }) => ({
   base: command === 'build' ? '/niobium-chain/' : '/',
   plugins: [react()],
+  build: {
+    rollupOptions: {
+      onwarn(warning, warn) {
+        // Suprimir avisos de INVALID_ANNOTATION de dependências de terceiros
+        if (warning.code === 'INVALID_ANNOTATION') {
+          return
+        }
+        warn(warning)
+      },
+    },
+  },
 }))
