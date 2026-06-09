@@ -27,8 +27,7 @@ const customSepoliaRpc = rawCustomRpc && !isUnreliableRpc ? rawCustomRpc : undef
 const sepoliaTransport = fallback([
   http('https://ethereum-sepolia-rpc.publicnode.com', httpOpts),
   http('https://rpc.ankr.com/eth_sepolia', httpOpts),
-  http('https://1rpc.io/sepolia', httpOpts),
-  http('https://sepolia.gateway.tenderly.co', httpOpts),
+  http('https://sepolia.drpc.org', httpOpts),
   ...(customSepoliaRpc ? [http(customSepoliaRpc, httpOpts)] : []),
 ])
 

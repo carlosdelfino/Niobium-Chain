@@ -10,7 +10,7 @@ const OBSERVATION_MAX = 140
 
 export function SupplyChain() {
   const { address, isConnected } = useAccount()
-  const { isOperator, isLoading: isRoleLoading } = useOperatorRole(address)
+  const { isOperator, isLoading: isRoleLoading, roleResolved, error: roleError } = useOperatorRole(address)
   const [batchInput, setBatchInput] = useState('')
   const [searchBatchId, setSearchBatchId] = useState<number | null>(null)
   const { history, isLoading, refetch } = useBatchHistory(searchBatchId ?? 0, searchBatchId !== null)
@@ -115,7 +115,7 @@ export function SupplyChain() {
         </div>
       )}
 
-      {isConnected && !isRoleLoading && !isOperator && (
+      {isConnected && !isRoleLoading && roleResolved && !isOperator && (
         <div className="bg-amber-50 border border-amber-200 rounded-lg p-6 mb-8">
           <div className="flex items-start gap-3">
             <ShieldAlert className="w-6 h-6 text-amber-600 shrink-0" />
@@ -130,6 +130,22 @@ export function SupplyChain() {
               <code className="block mt-1 text-xs bg-amber-100 text-amber-900 rounded px-2 py-1 break-all">
                 {OPERATOR_HINT_ADDRESS}
               </code>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {isConnected && !isRoleLoading && !roleResolved && roleError && (
+        <div className="bg-orange-50 border border-orange-200 rounded-lg p-6 mb-8">
+          <div className="flex items-start gap-3">
+            <ShieldAlert className="w-6 h-6 text-orange-600 shrink-0" />
+            <div>
+              <h3 className="font-medium text-orange-800">Não foi possível verificar a permissão</h3>
+              <p className="text-sm text-orange-700 mt-1">
+                A leitura do papel <strong>OPERATOR</strong> falhou (provável instabilidade ou limite do
+                provedor RPC). Isto <strong>não</strong> significa que sua conta não tem permissão. Aguarde
+                alguns segundos e recarregue a página.
+              </p>
             </div>
           </div>
         </div>

@@ -73,9 +73,14 @@ export function useOperatorRole(account?: `0x${string}`) {
 
   return {
     isOperator: data === true,
+    // roleResolved indica que a leitura retornou um valor booleano definitivo.
+    // Se a leitura falhou por erro de RPC (data === undefined), NÃO devemos
+    // concluir que a conta não é operador.
+    roleResolved: data !== undefined,
     isLoading,
     refetch,
     contractMissing,
+    error,
   }
 }
 
@@ -104,9 +109,11 @@ export function useAdminRole(account?: `0x${string}`) {
 
   return {
     isAdmin: data === true,
+    roleResolved: data !== undefined,
     isLoading,
     refetch,
     contractMissing,
+    error,
   }
 }
 

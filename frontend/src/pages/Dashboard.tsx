@@ -10,7 +10,7 @@ import { Package, Battery, Car, TrendingUp, ShieldAlert, AlertTriangle } from 'l
 export function Dashboard() {
   const { address, isConnected, chain } = useAccount()
   const { switchChain } = useSwitchChain()
-  const { isOperator, isLoading: isRoleLoading, contractMissing } = useOperatorRole(address)
+  const { isOperator, isLoading: isRoleLoading, contractMissing, roleResolved, error: roleError } = useOperatorRole(address)
   const { createNewBatch, isPending, isConfirming, isConfirmed, error } = useSupplyChain()
   const txError = parseTxError(error)
   const canCreate = isConnected && isOperator
@@ -98,7 +98,7 @@ export function Dashboard() {
         </div>
       )}
 
-      {isConnected && !isRoleLoading && !contractMissing && !isOperator && (
+      {isConnected && !isRoleLoading && !contractMissing && roleResolved && !isOperator && (
         <div className="bg-amber-50 border border-amber-200 rounded-lg p-6 mb-8">
           <div className="flex items-start gap-3">
             <ShieldAlert className="w-6 h-6 text-amber-600 shrink-0" />
@@ -111,6 +111,22 @@ export function Dashboard() {
               <code className="block mt-1 text-xs bg-amber-100 text-amber-900 rounded px-2 py-1 break-all">
                 {OPERATOR_HINT_ADDRESS}
               </code>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {isConnected && !isRoleLoading && !contractMissing && !roleResolved && roleError && (
+        <div className="bg-orange-50 border border-orange-200 rounded-lg p-6 mb-8">
+          <div className="flex items-start gap-3">
+            <AlertTriangle className="w-6 h-6 text-orange-600 shrink-0" />
+            <div>
+              <h3 className="font-medium text-orange-800">Não foi possível verificar a permissão</h3>
+              <p className="text-sm text-orange-700 mt-1">
+                A leitura do papel <strong>OPERATOR</strong> falhou (provável instabilidade ou limite do
+                provedor RPC). Isto <strong>não</strong> significa que sua conta não tem permissão. Aguarde
+                alguns segundos e recarregue a página.
+              </p>
             </div>
           </div>
         </div>
