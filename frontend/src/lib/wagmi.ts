@@ -12,14 +12,22 @@ const httpOpts = {
   retryDelay: 500,
 } as const
 
-// Transport resiliente: usa o RPC configurado e, se falhar/limitar (429),
-// faz fallback automático para um nó público.
-// Nota: https://rpc.sepolia.org não suporta CORS, então não é usado no navegador
+// URL de RPC customizada (Infura/Alchemy) somente se uma chave válida for
+// fornecida via env. Chaves públicas/compartilhadas do Infura costumam
+// retornar 401 (Unauthorized) ou 429 (Too Many Requests), por isso não são
+// usadas por padrão no navegador.
+const customSepoliaRpc = import.meta.env.VITE_SEPOLIA_RPC_URL
+
+// Transport resiliente: prioriza nós públicos que suportam CORS e não exigem
+// chave de API. Se uma RPC customizada válida for configurada, ela é usada
+// primeiro; caso contrário, recorre aos nós públicos abaixo.
+// Nota: https://rpc.sepolia.org não suporta CORS, então não é usado no navegador.
 const sepoliaTransport = fallback([
-  http(import.meta.env.VITE_SEPOLIA_RPC_URL || 'https://ethereum-sepolia-rpc.publicnode.com', httpOpts),
+  ...(customSepoliaRpc ? [http(customSepoliaRpc, httpOpts)] : []),
   http('https://ethereum-sepolia-rpc.publicnode.com', httpOpts),
   http('https://rpc.ankr.com/eth_sepolia', httpOpts),
-  http('https://sepolia.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161', httpOpts),
+  http('https://1rpc.io/sepolia', httpOpts),
+  http('https://sepolia.gateway.tenderly.co', httpOpts),
 ])
 
 const mainnetTransport = fallback([
