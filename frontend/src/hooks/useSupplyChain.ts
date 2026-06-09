@@ -12,7 +12,9 @@ export const DEFAULT_ADMIN_ROLE = '0x0000000000000000000000000000000000000000000
 
 // Endereço que recebe os papéis no deploy (deployer). Útil para orientar o
 // usuário sobre qual conta precisa estar conectada para movimentar lotes.
-export const OPERATOR_HINT_ADDRESS = '0x66682BBeD9e540017967692cCdd069fE5F833888'
+// Pode ser sobrescrito via variável de ambiente VITE_OPERATOR_ADDRESS.
+export const OPERATOR_HINT_ADDRESS = (import.meta.env.VITE_OPERATOR_ADDRESS ||
+  '0x66682BBeD9e540017967692cCdd069fE5F833888') as `0x${string}`
 
 /**
  * Converte erros de transação (viem/wagmi/MetaMask) em mensagens claras em PT-BR.

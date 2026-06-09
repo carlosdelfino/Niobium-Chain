@@ -44,6 +44,7 @@ jobs:
           VITE_VEHICLE_TRACKING_ADDRESS: ${{ secrets.VITE_VEHICLE_TRACKING_ADDRESS }}
           VITE_CARBON_CREDIT_ADDRESS: ${{secrets.VITE_CARBON_CREDIT_ADDRESS}}
           VITE_WALLETCONNECT_PROJECT_ID: ${{ secrets.VITE_WALLETCONNECT_PROJECT_ID }}
+          VITE_OPERATOR_ADDRESS: ${{ secrets.VITE_OPERATOR_ADDRESS }}
 
       - name: Configure Git
         run: |

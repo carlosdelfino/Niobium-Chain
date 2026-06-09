@@ -4,10 +4,10 @@ import { injected, walletConnect } from 'wagmi/connectors'
 
 const walletConnectProjectId = import.meta.env.VITE_WALLETCONNECT_PROJECT_ID
 
-// Opções compartilhadas: agrupa chamadas (batch) e tenta novamente em caso de
-// rate limit (HTTP 429), reduzindo a carga sobre o provedor RPC.
+// Opções compartilhadas: tenta novamente em caso de rate limit (HTTP 429),
+// reduzindo a carga sobre o provedor RPC. Batch desabilitado para compatibilidade.
 const httpOpts = {
-  batch: true,
+  batch: false,
   retryCount: 3,
   retryDelay: 500,
 } as const
@@ -18,7 +18,8 @@ const httpOpts = {
 const sepoliaTransport = fallback([
   http(import.meta.env.VITE_SEPOLIA_RPC_URL || 'https://ethereum-sepolia-rpc.publicnode.com', httpOpts),
   http('https://ethereum-sepolia-rpc.publicnode.com', httpOpts),
-  http('https://sepolia.drpc.org', httpOpts),
+  http('https://rpc.ankr.com/eth_sepolia', httpOpts),
+  http('https://sepolia.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161', httpOpts),
 ])
 
 const mainnetTransport = fallback([
