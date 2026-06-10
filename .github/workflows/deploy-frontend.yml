@@ -46,7 +46,7 @@ jobs:
           VITE_WALLETCONNECT_PROJECT_ID: ${{ secrets.VITE_WALLETCONNECT_PROJECT_ID }}
           VITE_OPERATOR_ADDRESS: ${{ secrets.VITE_OPERATOR_ADDRESS }}
           VITE_DEPLOY_FROM_BLOCK: ${{ secrets.VITE_DEPLOY_FROM_BLOCK }}
-          VITE_DEBUG_RPC: ${{ VITE_DEBUG_RPC }}
+          VITE_DEBUG_RPC: ${{ vars.VITE_DEBUG_RPC }}
       - name: Configure Git
         run: |
           git config --global user.name "GitHub Actions"
