@@ -578,16 +578,24 @@ export const CARBON_CREDIT_ABI = [
   },
 ] as const;
 
+// Sanitiza valores de env: secrets do GitHub frequentemente carregam uma
+// quebra de linha (\n) ou espaços no final, o que invalida endereços e faz o
+// RPC rejeitar com InvalidParamsRpcError. Remove qualquer espaço/quebra.
+function cleanEnv(value: string | undefined): string | undefined {
+  const trimmed = value?.trim()
+  return trimmed ? trimmed : undefined
+}
+
 // Endereços dos contratos (lidos do .env; fallback = deploy Sepolia)
 export const CONTRACT_ADDRESSES = {
-  supplyChain: (import.meta.env.VITE_SUPPLY_CHAIN_ADDRESS || '0xa8D4C4a0112E3E97f1EEaa3A5049e863DB384835') as `0x${string}`,
-  niobiumDID: (import.meta.env.VITE_NIOBIUM_DID_ADDRESS || '0x1ce2Ff12db18e690D03A119e212469C697824097') as `0x${string}`,
-  batteryTracking: (import.meta.env.VITE_BATTERY_TRACKING_ADDRESS || '0xbdC5a2DE14ac2530bC4D8Ca4D8572040F85B2938') as `0x${string}`,
-  vehicleTracking: (import.meta.env.VITE_VEHICLE_TRACKING_ADDRESS || '0x86fE62cb65C036412dC100035DeacD5A9345D86F') as `0x${string}`,
-  carbonCredit: (import.meta.env.VITE_CARBON_CREDIT_ADDRESS || '0x9fE08E204266D321fFB50Ed2d198ac2279494d5F') as `0x${string}`,
+  supplyChain: (cleanEnv(import.meta.env.VITE_SUPPLY_CHAIN_ADDRESS) || '0xa8D4C4a0112E3E97f1EEaa3A5049e863DB384835') as `0x${string}`,
+  niobiumDID: (cleanEnv(import.meta.env.VITE_NIOBIUM_DID_ADDRESS) || '0x1ce2Ff12db18e690D03A119e212469C697824097') as `0x${string}`,
+  batteryTracking: (cleanEnv(import.meta.env.VITE_BATTERY_TRACKING_ADDRESS) || '0xbdC5a2DE14ac2530bC4D8Ca4D8572040F85B2938') as `0x${string}`,
+  vehicleTracking: (cleanEnv(import.meta.env.VITE_VEHICLE_TRACKING_ADDRESS) || '0x86fE62cb65C036412dC100035DeacD5A9345D86F') as `0x${string}`,
+  carbonCredit: (cleanEnv(import.meta.env.VITE_CARBON_CREDIT_ADDRESS) || '0x9fE08E204266D321fFB50Ed2d198ac2279494d5F') as `0x${string}`,
 } as const;
 
 // Bloco a partir do qual buscar eventos (evita varrer toda a chain)
-export const DEPLOY_FROM_BLOCK: bigint = import.meta.env.VITE_DEPLOY_FROM_BLOCK
-  ? BigInt(import.meta.env.VITE_DEPLOY_FROM_BLOCK)
+export const DEPLOY_FROM_BLOCK: bigint = cleanEnv(import.meta.env.VITE_DEPLOY_FROM_BLOCK)
+  ? BigInt(cleanEnv(import.meta.env.VITE_DEPLOY_FROM_BLOCK)!)
   : 0n;
