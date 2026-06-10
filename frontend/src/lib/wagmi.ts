@@ -4,12 +4,46 @@ import { injected, walletConnect } from 'wagmi/connectors'
 
 const walletConnectProjectId = import.meta.env.VITE_WALLETCONNECT_PROJECT_ID
 
+// Liga logs detalhados de RPC quando VITE_DEBUG_RPC=true. Útil para inspecionar
+// requisições/respostas (ex.: descobrir o motivo de um HTTP 400 no eth_getLogs).
+const DEBUG_RPC = import.meta.env.VITE_DEBUG_RPC === 'true'
+
+// Callbacks de log: imprimem o método/params enviados e, em respostas não-OK,
+// o corpo de erro retornado pelo provedor (onde geralmente vem a causa do 400).
+async function onFetchRequest(request: Request) {
+  if (!DEBUG_RPC) return
+  try {
+    const clone = request.clone()
+    const body = await clone.text()
+    console.debug('[RPC →]', request.url, body)
+  } catch {
+    /* ignore */
+  }
+}
+
+async function onFetchResponse(response: Response) {
+  if (!DEBUG_RPC && response.ok) return
+  try {
+    const clone = response.clone()
+    const text = await clone.text()
+    if (!response.ok) {
+      console.error('[RPC ✗]', response.status, response.url, text)
+    } else {
+      console.debug('[RPC ←]', response.status, response.url, text)
+    }
+  } catch {
+    /* ignore */
+  }
+}
+
 // Opções compartilhadas: tenta novamente em caso de rate limit (HTTP 429),
 // reduzindo a carga sobre o provedor RPC. Batch desabilitado para compatibilidade.
 const httpOpts = {
   batch: false,
   retryCount: 3,
   retryDelay: 500,
+  onFetchRequest,
+  onFetchResponse,
 } as const
 
 // URL de RPC customizada (Infura/Alchemy) opcional via env. Chaves
@@ -24,9 +58,10 @@ const customSepoliaRpc = rawCustomRpc && !isUnreliableRpc ? rawCustomRpc : undef
 // Transport resiliente: prioriza nós públicos que suportam CORS e não exigem
 // chave de API. A RPC customizada (se houver e for confiável) entra por último.
 // Nota: https://rpc.sepolia.org não suporta CORS, então não é usado no navegador.
+// Nota: rpc.ankr.com/eth_sepolia foi removido pois agora exige API key
+// (responde 401 Unauthorized sem chave).
 const sepoliaTransport = fallback([
   http('https://ethereum-sepolia-rpc.publicnode.com', httpOpts),
-  http('https://rpc.ankr.com/eth_sepolia', httpOpts),
   http('https://sepolia.drpc.org', httpOpts),
   ...(customSepoliaRpc ? [http(customSepoliaRpc, httpOpts)] : []),
 ])
